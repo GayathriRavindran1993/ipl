@@ -1,0 +1,65 @@
+{% extends "semantic/base.html" %}
+{% load static %}
+{% block title %}{{ title }} :: {{ block.super }}{% endblock %}
+
+
+
+{% block content %}
+  <form  action="/get-data/" class="ui form" method="get">{% csrf_token %}
+    <div>
+Year<input  id="year" name="year">
+<br><br>
+      <table style="width:50%">
+<tr><td><b>Top 4 Teams over {{year}}</b></td><tr></tr>{% for team in top_teams %}
+  <td>{{team.0}}
+</td>{% endfor %}</tr>
+<tr><b>Top Toss Winner</b></tr><br>
+<tr>{{toss_winner.0}}</tr><br>
+<tr><b>Top Player over the whole season(won player_of_matches)</b></tr><br>
+<tr>{{top_player.0}}</tr><br>
+<tr><b>Top Team who won max matches over whole season</b></tr><br>
+<tr>{{top_team.0}}</tr><br>
+
+<tr><b>Location has the most number of wins for the top team</b></tr><br>
+<tr>{{top_team_win_location.0}}</tr><br>
+<tr><b>% of teams decided to bat when they won the toss</b></tr><br>
+<tr>{{percent_bat_toss}}</tr><br>
+<tr><b>location hosted most number of matches</b></tr><br>
+<tr>{{most_location.0}}</tr><br>
+<tr><b> team won by the highest margin of runs  for the season</b></tr><br>
+<tr>{{team_high_margin}}</tr><br>
+<tr><b>team won by the highest number of wickets for the season</b></tr><br>
+<tr>{{team_high_wickets}}</tr><br>
+<tr><b>Batsman gave away the most number of runs in a match for the selected season</b></tr><br>
+<tr>{{bowler_gave_away_runs.0}}</tr><br>
+<tr><b>Most number of catches by a fielder in a match for the selected season</b></tr><br>
+<tr>{{no_catches_most.1}}</tr><br>
+</table>
+   <div>
+      
+
+    </div>
+<div>
+        
+</div>
+<button type="submit">Submit</button>
+  </form>
+{% endblock %}
+
+{% block js %}
+  <script type="text/javascript" src="{% static 'plugins/js/ace.js' %}"></script>
+  <script type="text/javascript" src="{% static 'plugins/js/mode-markdown.js' %}"></script>
+  <script type="text/javascript" src="{% static 'plugins/js/ext-language_tools.js' %}"></script>
+  <script type="text/javascript" src="{% static 'plugins/js/theme-github.js' %}"></script>
+  <script type="text/javascript" src="{% static 'plugins/js/typo.js' %}"></script>
+  <script type="text/javascript" src="{% static 'plugins/js/spellcheck.js' %}"></script>
+  <script type="text/javascript" src="{% static 'plugins/js/highlight.min.js' %}"></script>
+  <script type="text/javascript" src="{% static 'plugins/js/resizable.min.js' %}"></script>
+  <script type="text/javascript" src="{% static 'plugins/js/emojis.min.js' %}"></script>
+  <script type="text/javascript" src="{% static 'martor/js/martor.semantic.min.js' %}"></script>
+
+  <script>
+    $('form [name="title"]').attr({'placeholder': 'Post Title'});
+    $('.ui.menu .ui.dropdown.item').dropdown();
+  </script>
+{% endblock %}
